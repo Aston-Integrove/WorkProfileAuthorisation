@@ -9,7 +9,9 @@ context: |
   for errors, immutable record DTOs, CancellationToken on all I/O. SQL Server with EF Core 10,
   Fluent API configurations, explicit MaxLength, rowversion on mutable aggregate roots, reversible migrations.
   Tests: xUnit with Testcontainers, OPA5 and QUnit.
-  Hosting: Azure, South Africa regions only. Delivery: Azure DevOps YAML pipelines, Bicep, Key Vault for secrets.
+  Hosting: Azure, South Africa regions only. Source in GitHub, delivery through Azure Pipelines YAML, Bicep, Key Vault for secrets.
+  Work that needs Azure, outside parties or sign-offs belongs in the change azure-delivery-and-pilot-readiness, so the
+  release one tasks stay buildable and verifiable locally.
   Integration events use signed HTTPS webhooks through a transactional outbox. No Service Bus or Event Grid.
   The application issues its own OAuth client credentials to integrating systems (OpenIddict), with scopes
   enforced per endpoint and a per-client list of allowed operations.

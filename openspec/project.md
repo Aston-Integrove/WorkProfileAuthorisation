@@ -9,10 +9,11 @@ Enterprise web application built with a SAPUI5 (TypeScript) frontend adhering st
 - **Database:** Microsoft SQL Server, Entity Framework Core 10
 - **Testing:** xUnit + Testcontainers (Backend), OPA5 / QUnit (Frontend)
 - **Hosting:** Microsoft Azure, South Africa regions only (South Africa North, with South Africa West for disaster recovery) until the client confirms otherwise
-- **CI/CD:** Azure DevOps (Repos, Pipelines, Boards, Artifacts)
+- **Source control:** GitHub (`Aston-Integrove/WorkProfileAuthorisation`)
+- **CI/CD:** Azure Pipelines (Azure DevOps) building from the GitHub repository, with Azure DevOps Boards for work tracking
 
 ## Deployment & Delivery (Azure & Azure DevOps)
-- **Source control:** Azure DevOps Repos. Changes reach the main branch only through pull requests with a passing build and at least one reviewer, enforced by branch policy.
+- **Source control:** the GitHub repository. Changes reach `main` only through pull requests with a passing Azure Pipelines build and at least one reviewer, enforced by GitHub branch protection. Azure Pipelines connects to GitHub through a service connection. GitHub secret scanning and push protection are on.
 - **Pipelines:** Azure Pipelines defined as YAML in the repository (`azure-pipelines.yml` plus shared templates). No classic release pipelines.
   - **Build and test stage:** restore, build, run xUnit and Testcontainers tests, run UI5 lint, build and QUnit/OPA5 tests, and publish test and coverage results.
   - **OpenAPI stage:** publish the generated OpenAPI document as a build artifact. Fail the build if the UI5 TypeScript service layer generated from it differs from what is committed.

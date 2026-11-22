@@ -1,0 +1,24 @@
+# .NET
+bin/
+obj/
+*.user
+TestResults/
+*.log
+
+# Node and UI5
+node_modules/
+dist/
+.ui5/
+
+# IDE
+.vs/
+.idea/
+
+# Secrets and local settings
+appsettings.*.local.json
+*.pfx
+*.key
+.env
+.env.*
+secrets.json
+.claude/settings.local.json

@@ -1,0 +1,53 @@
+schema: spec-driven
+
+context: |
+  Full stack and standards are in openspec/project.md. Read it before drafting artifacts.
+  Product: internal Work Profile and Authorisation application for Integrove (Pty) Ltd clients (South African mines).
+  Use South African English and rand (ZAR). Treat client information as confidential.
+  Stack: SAPUI5 (TypeScript) with SAP Fiori floorplans, XML views, sap_horizon theme, no custom CSS,
+  all user-facing text in i18n/i18n.properties. Backend .NET 10 Web API with OpenAPI, ProblemDetails
+  for errors, immutable record DTOs, CancellationToken on all I/O. SQL Server with EF Core 10,
+  Fluent API configurations, explicit MaxLength, rowversion on mutable aggregate roots, reversible migrations.
+  Tests: xUnit with Testcontainers, OPA5 and QUnit.
+  Hosting: Azure, South Africa regions only. Delivery: Azure DevOps YAML pipelines, Bicep, Key Vault for secrets.
+  Integration events use signed HTTPS webhooks through a transactional outbox. No Service Bus or Event Grid.
+  The application issues its own OAuth client credentials to integrating systems (OpenIddict), with scopes
+  enforced per endpoint and a per-client list of allowed operations.
+  Domain rules: the tool is not a verification-of-competency tool and never marks anyone competent or certified.
+  Eligibility is computed, never entered. Medical data is fit or unfit with dates only (POPIA).
+  The QR token is opaque and the status page shows no personal or medical detail.
+  A revoked authorisation displays as expired while the audit trail keeps the real state.
+  The whole application must run and be testable locally with no Azure resources (local SQL Server, Docker, ports with local
+  implementations, development-only login and time control).
+  One deployment per client. People sign in through the client's Entra tenant (B2B guests for other companies).
+  Source systems that Azure cannot reach are read by an on-premises agent that pushes evidence.
+  The only exception to the UI5 and Fiori standard is the public status page, which is server-rendered and script-free.
+  Where an open question (Q-number from the PRD) affects behaviour, state the interim assumption.
+
+rules:
+  proposal:
+    - Always state what is out of scope.
+    - List the open questions (Q-numbers) that affect the change.
+  specs:
+    - Write behaviour only, with no framework or library names.
+    - Use SHALL or MUST for every requirement, including Should-priority items, and note the priority in the text.
+    - Never describe a person as competent or certified.
+  design:
+    - Map SQL Server table columns and indexes, OpenAPI routes, methods and DTO schemas, and the SAP Fiori floorplan and UI5 control hierarchy.
+    - For anything that handles personal data, state how POPIA is met.
+  tasks:
+    - Every task states how it is verified.
+    - Tests and documentation land in the same group as the work, not in a final group.
+    - Each UI task names the floorplan used and confirms strings are in i18n.properties.
+
+# Per-operation guidance (optional)
+# Add advisory guidance for how apply and archive work should be conducted.
+# This is separate from artifact rules above.
+# Example:
+#   operations:
+#     apply:
+#       guidance:
+#         - Keep test summaries concise
+#     archive:
+#       guidance:
+#         - Summarize the archive outcome before finishing
